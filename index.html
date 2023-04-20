@@ -1,61 +1,110 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>Image Slideshow</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-		}
+  <meta charset="utf-8">
+  <title>Image Slideshow</title>
+  
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+    }
 
-		img {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			opacity: 0;
-			transition: opacity 1s ease-in-out;
-		}
-	</style>
+    #slideshow {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #slideshow img.active {
+      opacity: 1;
+    }
+
+	#overlay {
+		position: absolute;
+		top: 50px;
+		left: 50px;
+		width: 175px;
+		height: 175px;
+		z-index: 1;
+    }
+	#volume-slider {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 150px;
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1;
+	}
+
+	#volume-slider input {
+		width: 100%;
+	}
+  </style>
 </head>
-
 <body>
-	<img id="image1">
-	<img id="image2">
-	<script>
-		let images = [
-			"https://i.imgur.com/3EoiJRm.jpg",
-			"https://i.imgur.com/JuGVvZp.jpg",
-			"https://i.imgur.com/rsj7tSx.jpg",
-			"https://i.imgur.com/qP9lmIP.jpg",
-			"https://i.imgur.com/BOlwVj3.jpg",
-			"https://i.imgur.com/9vwj0fH.jpg",
-			"https://i.imgur.com/5qAgUo9.jpg"
-		];
-		let currentImage = 0;
-		let duration = 5000; // milliseconds
 
-		function nextImage() {
-			let image1 = document.getElementById("image1");
-			let image2 = document.getElementById("image2");
+	<audio id="bgmusic" loop>
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1098730794727518208/loading_screen.mp3" type="audio/mpeg">
+	</audio>
 
-			image2.src = images[currentImage];
-			image2.style.opacity = 1;
-			currentImage = (currentImage + 1) % images.length;
+	<div id="volume-slider">
+		<input type="range" min="0" max="1" step="0.1" value="1" onchange="changeVolume()">
+	</div>
 
-			setTimeout(function() {
-				image1.src = image2.src;
-				image1.style.opacity = 1;
-				image2.style.opacity = 0;
-			}, duration);
-			setTimeout(nextImage, duration);
-		}
+  <div id="slideshow">
+    <img src="https://i.imgur.com/3EoiJRm.jpg" class="active">
+    <img src="https://i.imgur.com/JuGVvZp.jpg">
+    <img src="https://i.imgur.com/rsj7tSx.jpg">
+    <img src="https://i.imgur.com/qP9lmIP.jpg">
+    <img src="https://i.imgur.com/BOlwVj3.jpg">
+    <img src="https://i.imgur.com/9vwj0fH.jpg">
+    <img src="https://i.imgur.com/5qAgUo9.jpg">
+  </div>
 
-		nextImage();
-	</script>
+	<div id="overlay">
+		<img src="https://i.imgur.com/yvat4V4.png" width="175" height="175">
+	</div>
+
+  <script>
+    var slideshow = document.getElementById("slideshow");
+    var images = slideshow.getElementsByTagName("img");
+    var currentImage = 0;
+	
+	var bgmusic = document.getElementById("bgmusic");
+	var volumeSlider = document.querySelector("#volume-slider input");
+	
+	function changeVolume() {
+	  bgmusic.volume = volumeSlider.value;
+	  bgmusic.play();
+	}
+	
+    function nextImage() {
+      images[currentImage].className = "";
+      currentImage = (currentImage + 1) % images.length;
+      images[currentImage].className = "active";
+	  bgmusic.play();
+      setTimeout(nextImage, 5000);
+    }
+	
+    images[currentImage].className = "active";
+    setTimeout(nextImage, 5000);
+  </script>
 </body>
-
 </html>
