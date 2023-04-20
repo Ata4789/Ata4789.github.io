@@ -86,25 +86,25 @@
     var slideshow = document.getElementById("slideshow");
     var images = slideshow.getElementsByTagName("img");
     var currentImage = 0;
-	
 	var bgmusic = document.getElementById("bgmusic");
 	var volumeSlider = document.querySelector("#volume-slider input");
-	
-	function changeVolume() {
-	  bgmusic.volume = volumeSlider.value;
-	  bgmusic.play();
-	}
-	
+
     function nextImage() {
       images[currentImage].className = "";
+	  bgmusic.play();
       currentImage = (currentImage + 1) % images.length;
       images[currentImage].className = "active";
-	  bgmusic.play();
       setTimeout(nextImage, 5000);
     }
 	
     images[currentImage].className = "active";
     setTimeout(nextImage, 5000);
+	bgmusic.play();
+
+	function changeVolume() {
+	  bgmusic.volume = volumeSlider.value;
+	  bgmusic.play();
+	}
   </script>
 </body>
 </html>
