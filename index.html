@@ -38,8 +38,8 @@
 		top: 84%;
 		right: 20%;
 		width: 60%;
-		background-color: #000;
-		opacity: 0.9;
+		background-color: #111;
+		opacity: 0.8;
 		padding: 20px;
 		box-sizing: border-box;
 		border-radius: 10px;
@@ -158,7 +158,7 @@
     var currentImage = 0;
 	var bgmusic = document.getElementById("bgmusic");
 	var volumeSlider = document.querySelector("#volume-slider input");
-
+	
     function nextImage() {
       images[currentImage].className = "";
 	  bgmusic.play();
@@ -221,6 +221,24 @@
       }
 
       // Function to display a quote in the container
+	  function typeSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
+	  function returnSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012301572558848/typewriter-backspace-1.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
+	  function authorSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012302268805281/typewriter-2.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
       function displayQuote(quote) {
 		  const container = document.getElementById("quote");
 		  const author = document.getElementById("author");
@@ -231,14 +249,18 @@
 		  let intervalId = setInterval(function() {
 			if (letterIndex < letters.length) {
 			  container.textContent += letters[letterIndex];
+			  typeSound();
+			  bgmusic.play();
 			  letterIndex++;
 			} else {
 			  clearInterval(intervalId);
+			  returnSound();
 			  setTimeout(function() {
+				authorSound();
 				author.textContent = quote.author;
 			  }, 1000);
 			}
-		  }, 80);
+		  }, 110);
 		}
 
       // Display a random quote initially
