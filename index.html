@@ -118,7 +118,7 @@
 	<a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
 	
 	<div id="volume-slider">
-		<input type="range" min="0" max="1" step="0.1" value="0.1" onchange="changeVolume()">
+		<input type="range" min="0" max="1" step="0.1" value="0.01" onchange="changeVolume()">
 	</div>
 
   <div id="slideshow">
@@ -155,7 +155,7 @@
 	bgmusic.play();
 
 	function changeVolume() {
-	  bgmusic.volume = 0.1;
+	  bgmusic.volume = 0.05;
 	  bgmusic.play();
 	}
 	
