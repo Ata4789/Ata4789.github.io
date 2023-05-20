@@ -145,6 +145,8 @@
     function nextImage() {
       images[currentImage].className = "";
 	  bgmusic.play();
+	    
+	  bgmusic.volume= 0.05,
       currentImage = (currentImage + 1) % images.length;
       images[currentImage].className = "active";
       setTimeout(nextImage, 9000);
