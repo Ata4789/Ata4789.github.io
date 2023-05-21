@@ -118,7 +118,7 @@
 	<a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
 	
 	<div id="volume-slider">
-		<input type="range" min="0" max="1" step="0.1" value="0.01" onchange="changeVolume()">
+		<input type="range" min="0" max="1" step="0.1" value="0.1" onchange="changeVolume(this.value)">
 	</div>
 
   <div id="slideshow">
@@ -146,7 +146,7 @@
       images[currentImage].className = "";
 	  bgmusic.play();
 	    
-	  bgmusic.volume= 0.05,
+	  bgmusic.volume = volumeSlider.value,
       currentImage = (currentImage + 1) % images.length;
       images[currentImage].className = "active";
       setTimeout(nextImage, 9000);
@@ -156,9 +156,8 @@
     setTimeout(nextImage, 9000);
 	bgmusic.play();
 
-	function changeVolume() {
-	  bgmusic.volume = 0.05;
-	  bgmusic.play();
+	function changeVolume(volume) {
+	  bgmusic.volume = volume;
 	}
 	
 	window.onload = function() {
@@ -269,12 +268,12 @@
       // Display a random quote initially
       displayQuote(chooseRandomQuote());
 
-      // Refresh the quote every 10 seconds
+      // Change quote every 5 seconds
       setInterval(function() {
-        document.getElementById("quote").innerHTML = "";
-        document.getElementById("author").innerHTML = "";
-        displayQuote(chooseRandomQuote());
-      }, 15000);
-	</script>
+        const quote = chooseRandomQuote();
+        displayQuote(quote);
+      }, 5000);
+</script>
+  
 </body>
 </html>
