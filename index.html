@@ -32,6 +32,17 @@
 	  text-align: center;
     }
 	
+    #discord-button {
+      position: absolute;
+	  bottom: 35px;
+	  left: 15px;
+      width: 125px;
+      height: 125px;
+      background-image: url(https://988lifeline.org/wp-content/uploads/2020/06/Discord-Logo-Color.png);
+      background-size: cover;
+      cursor: pointer;
+	  z-index: 5;
+    }
 	
 	#quote-container {
 		position: fixed;
@@ -118,7 +129,7 @@
 	<a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
 	
 	<div id="volume-slider">
-		<input type="range" min="0" max="1" step="0.1" value="0.1" onchange="changeVolume(this.value)">
+		<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="changeVolume()">
 	</div>
 
   <div id="slideshow">
@@ -146,7 +157,7 @@
       images[currentImage].className = "";
 	  bgmusic.play();
 	    
-	  bgmusic.volume = volumeSlider.value,
+	  bgmusic.volume= volumeSlider.value,
       currentImage = (currentImage + 1) % images.length;
       images[currentImage].className = "active";
       setTimeout(nextImage, 9000);
@@ -156,8 +167,9 @@
     setTimeout(nextImage, 9000);
 	bgmusic.play();
 
-	function changeVolume(volume) {
-	  bgmusic.volume = volume;
+	function changeVolume() {
+	  bgmusic.volume = volumeSlider.value;
+	  bgmusic.play();
 	}
 	
 	window.onload = function() {
@@ -268,12 +280,12 @@
       // Display a random quote initially
       displayQuote(chooseRandomQuote());
 
-      // Change quote every 5 seconds
+      // Refresh the quote every 10 seconds
       setInterval(function() {
-        const quote = chooseRandomQuote();
-        displayQuote(quote);
-      }, 5000);
-</script>
-  
+        document.getElementById("quote").innerHTML = "";
+        document.getElementById("author").innerHTML = "";
+        displayQuote(chooseRandomQuote());
+      }, 15000);
+	</script>
 </body>
 </html>
