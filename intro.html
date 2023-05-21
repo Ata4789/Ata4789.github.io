@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Domino - 90 Days After</title>
+  
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+  
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+	  color: #0f0;
+	  font-family: monospace;
+	  text-align: center;
+    }
+	
+    #discord-button {
+      position: absolute;
+	  bottom: 35px;
+	  left: 15px;
+      width: 125px;
+      height: 125px;
+      background-image: url(https://988lifeline.org/wp-content/uploads/2020/06/Discord-Logo-Color.png);
+      background-size: cover;
+      cursor: pointer;
+	  z-index: 5;
+    }
+	
+	#quote-container {
+		position: fixed;
+		top: 84%;
+		right: 20%;
+		width: 60%;
+		background-color: #111;
+		opacity: 0.8;
+		padding: 20px;
+		box-sizing: border-box;
+		border-radius: 10px;
+		z-index: 3;
+	}
+	#quote {
+		font-family: "Courier New", Courier, monospace;
+		font-size: 20px;
+		line-height: 1.5;
+		z-index: 4;
+	}
+	#author {
+        font-size: 20px;
+        margin-top: 10px;
+		z-index: 4;
+	}
+	
+    #slideshow {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #slideshow img.active {
+      opacity: 1;
+    }
+
+	#overlay {
+		position: absolute;
+		top: 50px;
+		left: 50px;
+		width: 175px;
+		height: 175px;
+		z-index: 1;
+    }
+	#volume-slider {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 150px;
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 1;
+	}
+
+	#volume-slider input {
+		width: 100%;
+	}
+  </style>
+</head>
+<body>
+
+	<div id="quote-container">
+      <div id="quote"></div>
+      <div id="author"></div>
+    </div>
+
+	<audio id="bgmusic" loop>
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1098754765162283038/loading_screen.ogg" type="audio/ogg">
+	</audio>
+	
+	<a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
+	
+	<div id="volume-slider">
+		<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="changeVolume()">
+	</div>
+
+  <div id="slideshow">
+    <img src="https://i.imgur.com/3EoiJRm.jpg" class="active">
+    <img src="https://i.imgur.com/JuGVvZp.jpg">
+    <img src="https://i.imgur.com/rsj7tSx.jpg">
+    <img src="https://i.imgur.com/qP9lmIP.jpg">
+    <img src="https://i.imgur.com/BOlwVj3.jpg">
+    <img src="https://i.imgur.com/9vwj0fH.jpg">
+    <img src="https://i.imgur.com/5qAgUo9.jpg">
+  </div>
+
+	<div id="overlay">
+		<img src="https://i.imgur.com/yvat4V4.png" width="175" height="175">
+	</div>
+
+  <script>
+    var slideshow = document.getElementById("slideshow");
+    var images = slideshow.getElementsByTagName("img");
+    var currentImage = 0;
+	var bgmusic = document.getElementById("bgmusic");
+	var volumeSlider = document.querySelector("#volume-slider input");
+	
+    function nextImage() {
+      images[currentImage].className = "";
+	  bgmusic.play();
+	    
+	  bgmusic.volume= volumeSlider.value,
+      currentImage = (currentImage + 1) % images.length;
+      images[currentImage].className = "active";
+      setTimeout(nextImage, 9000);
+    }
+	
+    images[currentImage].className = "active";
+    setTimeout(nextImage, 9000);
+	bgmusic.play();
+
+	function changeVolume() {
+	  bgmusic.volume = volumeSlider.value;
+	  bgmusic.play();
+	}
+	
+	window.onload = function() {
+		bgmusic.play();
+	}
+  </script>
+  
+  <script>
+	document.getElementById("discord-button").onclick = function() {
+		window.location.href = "https://discord.gg/mM5qwG8CPr";
+	}
+	window.onload = function() {
+		bgmusic.play();
+	}
+</script>
+
+
+	<script>
+	  const quotes = [
+        {
+          quote: "The end of the world is not something to fear, but rather to embrace with open arms.",
+          author: "Friedrich Nietzsche"
+        },
+        {
+          quote: "Apocalypse is the ultimate expression of humanity's self-destructive nature.",
+          author: "Noam Chomsky"
+        },
+        {
+          quote: "When civilization collapses, the true horrors of humanity are unleashed.",
+          author: "George Orwell"
+        },
+        {
+          quote: "The end of days reveals the darkest corners of our souls.",
+          author: "Edgar Allan Poe"
+        },
+        {
+          quote: "In the face of doomsday, hope becomes a cruel joke.",
+          author: "H.P. Lovecraft"
+        },
+	{
+  	quote: "The apocalypse is a testament to the fragility and futility of our existence.",
+  	author: "Albert Camus"
+	},
+	{
+ 	quote: "When the world ends, it is not with a bang, but with the silence of despair.",
+ 	author: "Arthur C. Clarke"
+	},
+
+	{
+	quote: "In the wake of devastation, humanity's true nature is revealed: a relentless pursuit of self-interest.",
+	author: "Ayn Rand"
+	},
+	{
+	quote: "Apocalypse exposes the hollowness of our accomplishments and the vanity of our pursuits.",
+	author: "Sigmund Freud"
+	}
+
+      ];
+
+      // Function to choose a random quote from the list
+      function chooseRandomQuote() {
+        return quotes[Math.floor(Math.random() * quotes.length)];
+      }
+
+      // Function to display a quote in the container
+	  function typeSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
+	  function returnSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012301572558848/typewriter-backspace-1.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
+	  function authorSound() {
+		let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012302268805281/typewriter-2.mp3");
+		audio.volume = 0.1;
+		audio.play();
+	  }
+	  
+      function displayQuote(quote) {
+		  const container = document.getElementById("quote");
+		  const author = document.getElementById("author");
+		  container.textContent = "";
+		  author.textContent = "";
+		  let letters = quote.quote.split("");
+		  let letterIndex = 0;
+		  let intervalId = setInterval(function() {
+			if (letterIndex < letters.length) {
+			  container.textContent += letters[letterIndex];
+			  typeSound();
+			  bgmusic.play();
+			  letterIndex++;
+			} else {
+			  clearInterval(intervalId);
+			  returnSound();
+			  setTimeout(function() {
+				authorSound();
+				author.textContent = quote.author;
+			  }, 1000);
+			}
+		  }, 110);
+		}
+
+      // Display a random quote initially
+      displayQuote(chooseRandomQuote());
+
+      // Refresh the quote every 10 seconds
+      setInterval(function() {
+        document.getElementById("quote").innerHTML = "";
+        document.getElementById("author").innerHTML = "";
+        displayQuote(chooseRandomQuote());
+      }, 15000);
+	</script>
+</body>
+</html>
