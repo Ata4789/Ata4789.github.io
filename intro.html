@@ -26,10 +26,11 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #111;
+      background-color: #000;
 	  color: #0f0;
 	  font-family: monospace;
 	  text-align: center;
+	  z-index: 0;
     }
 	
     #discord-button {
@@ -41,7 +42,7 @@
       background-image: url(https://988lifeline.org/wp-content/uploads/2020/06/Discord-Logo-Color.png);
       background-size: cover;
       cursor: pointer;
-	  z-index: 5;
+	  z-index: 6;
     }
 	.quote-container-background {
 	position: absolute;
@@ -50,11 +51,11 @@
 	width: 21%;
 	height: 100%;
 	background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(10, 10, 10, 0.9) 5%, rgba(10, 10, 10, .9) 100%);
-	z-index: 2;
+	z-index: 3;
 	}
 	#quote-container {
 		position: fixed;
-		top: 5%;
+		top: 1%;
 		right: 20px;
 		width: calc(20% - 20px);
 		background-color: rgba(20, 20, 20, 0);
@@ -63,42 +64,55 @@
 		z-index: 3;
 		overflow: hidden;
 		text-align: left;
+		z-index: 4;
 	}
 	#quote {
 		font-family: "Courier New", Courier, monospace;
 		font-size: 20px;
 		line-height: 1.5;
-		z-index: 4;
+		z-index: 50;
 	}
 	#author {
         font-size: 20px;
         margin-top: 10px;
-		z-index: 4;
+		z-index: 51;
 	}
 	
-    #slideshow {
-      position: relative;
-      height: 100vh;
-      width: 100%;
-      overflow: hidden;
-    }
+	#slideshow {
+	  position: relative;
+	  height: 100vh;
+	  width: 100%;
+	  overflow: hidden;
+	  z-index: 1;
+	}
 
-    #slideshow img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
+	.slide {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	}
 
-    #slideshow img.active {
-      opacity: 1;
-    }
+	.media {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  margin: auto;
+	  height: 100%;
+	  width: 100%;
+	  object-fit: contain;
+	  opacity: 0;
+	  transition: opacity 1s ease-in-out;
+	  z-index: 1;
+	}
+
+	.media.active {
+	  opacity: 1;
+	  z-index: 1;
+	}
 
 	#overlay {
 		position: absolute;
@@ -106,7 +120,7 @@
 		left: 50px;
 		width: 175px;
 		height: 175px;
-		z-index: 1;
+		z-index: 2;
     }
 	#volume-slider {
 		position: absolute;
@@ -115,7 +129,7 @@
 		width: 150px;
 		padding: 10px;
 		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 1;
+		z-index: 2;
 	}
 
 	#volume-slider input {
@@ -147,137 +161,227 @@
 	</div>
 
   <div id="slideshow">
-    <img src="https://i.imgur.com/3EoiJRm.jpg" class="active">
-    <img src="https://i.imgur.com/JuGVvZp.jpg">
-    <img src="https://i.imgur.com/rsj7tSx.jpg">
-    <img src="https://i.imgur.com/qP9lmIP.jpg">
-    <img src="https://i.imgur.com/BOlwVj3.jpg">
-    <img src="https://i.imgur.com/9vwj0fH.jpg">
-    <img src="https://i.imgur.com/5qAgUo9.jpg">
+	<div class="slide">
+		<img src="https://i.imgur.com/3EoiJRm.jpg" class="media active">
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/JuGVvZp.jpg" class="media">
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/rsj7tSx.jpg" class="media">
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/qP9lmIP.jpg" class="media">
+	</div>
+	<div class="slide">
+		<video src="https://cdn.discordapp.com/attachments/1074510396720947221/1109664686686879754/Garrys_Mod_x64_2023-05-21_04-09-13.mp4" class="media"></video>
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/BOlwVj3.jpg" class="media">
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/9vwj0fH.jpg" class="media">
+	</div>
+	<div class="slide">
+		<img src="https://i.imgur.com/5qAgUo9.jpg" class="media">
+	</div>
   </div>
 
-  <script>
-    var slideshow = document.getElementById("slideshow");
-    var images = slideshow.getElementsByTagName("img");
-    var currentImage = 0;
-	var bgmusic = document.getElementById("bgmusic");
-	var volumeSlider = document.querySelector("#volume-slider input");
-	
-    function nextImage() {
-      images[currentImage].className = "";
-	  bgmusic.play();
-	    
-	  bgmusic.volume= volumeSlider.value,
-      currentImage = (currentImage + 1) % images.length;
-      images[currentImage].className = "active";
-      setTimeout(nextImage, 9000);
-    }
-	
-    images[currentImage].className = "active";
-    setTimeout(nextImage, 9000);
-	bgmusic.play();
-	
-	function changeVolume() {
-	  bgmusic.volume = volumeSlider.value;
-	  bgmusic.play();
-	}
-	
-	window.onload = function() {
-		bgmusic.play();
-	}
-  </script>
-  
-  <script>
-	document.getElementById("discord-button").onclick = function() {
-		window.location.href = "https://discord.gg/mM5qwG8CPr";
-	}
-	window.onload = function() {
-		bgmusic.play();
-	}
-</script>
-
-
 	<script>
-		  const texts = [
-	  {
-		text: "The energy crisis along with mounting pressure by the public would push the United States to adopt more renewable energy sources such as nuclear energy to reduce the reliance upon non-renewables like oil and gas. This fast adoption of nuclear power would prove to be a clumsy and an uncalculated move when recently built nuclear power plants in the Midwest and East Coast would melt down. Nearly a million people would be exposed to radiation within the affected areas, causing many ill-effects. Biotegris, a pharmaceutical company approaches the United States government for subsidies to fund a new anti-radiation drug named Dioxiodine, which can be administered by injection or orally. FDA director Brian Moore, with Biotegris in his pockets, gets the new drug approved hastily with no clinical trials conducted to prove its safety and effectiveness. FEMA director Edward J Almos would order millions of doses of Dioxiodine to be sent to clinics and hospitals in affected areas. Weeks after waves of doses, people began exhibiting behaviors of extreme violence, aggression, and hostility to people who have not received doses of Dioxiodine. The Emergency Alert System would be broadcasted across the country, with marshal law and lawlessness ensuing as law enforcement and the military are overwhelmed by mass riots, chaos, and the 'people' exhibiting extreme violence, aggression, and hostility as a result of taking Dioxiodine.",
-		duration: 25000
-	  },
-	  {
-		text: "One by one, all of you are rounded up and placed on buses, transporting you all towards whatever nearest refugee zone still had available space to take in more people. This vehicle experiences a shortage of gas and other mechanical problems as soon as the bus you're on enters the abandoned city of Holston, Pennsylvania. a city that is one of many others is on the route your driver is taking; the place itself was abandoned a week and a half ago; those previously stated problems finally bring the transport to a grinding halt; the driver, alongside whatever national guardsmen are present, reassures you that the vehicle will continue moving as soon as these problems are taken care of. All four men leave the bus. The driver opens the hood and inspects the engine for any damages before moving to siphon gas from any surrounding vehicles left behind during the panic. The guardsmen search the area for any threats, expecting nothing as the city has been quiet ever since they entered the city. An hour later, you all hear gunshots, followed by screaming and panic. You see nothing through the windows, though. You all stay inside the bus, afraid to move or go outside. Finally, one figure is seen running towards the bus, waving his hands in the air and shouting for you all to start the bus. As he is leapt upon by a group of people, if you could even call them that anymore, they claw into him, biting or even using blunt or sharp objects to kill the man as he attempts to plea for help. Using his death as a distraction, you all scatter, running out of the bus, splitting off into groups, or going alone into the cities more rural areas, this whole city is placed under a heavy exclusion zone, just by being here without any sort of government or military personnel with you is a death warrant.",
-		duration: 20000
-	  },
-	  {
-		text: "Text 3",
-		duration: 5000
-	  },
-	  {
-		text: "Text 4",
-		duration: 5000
-	  },
-	  {
-		text: "Text 5",
-		duration: 5000
-	  }
-	];
+		  var slideshow = document.getElementById("slideshow");
+		  var slides = slideshow.getElementsByClassName("slide");
+		  var currentSlide = 0;
+		  var bgmusic = document.getElementById("bgmusic");
+		  var volumeSlider = document.querySelector("#volume-slider input");
 
-	let textIndex = 0; // Keep track of the current text index
 
-	// Function to display a text in the container
-	function typeSound() {
-	  let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3");
-	  audio.volume = 0.1;
-	  audio.play();
-	}
-
-	function returnSound() {
-	  let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012301572558848/typewriter-backspace-1.mp3");
-	  audio.volume = 0.1;
-	  audio.play();
-	}
-
-	function authorSound() {
-	  let audio = new Audio("https://cdn.discordapp.com/attachments/626156665430999061/1099012302268805281/typewriter-2.mp3");
-	  audio.volume = 0.1;
-	  audio.play();
-	}
-
-	function displayText(text) {
-	  const container = document.getElementById("quote");
-	  const author = document.getElementById("author");
-	  container.textContent = "";
-	  author.textContent = "";
-	  let letters = text.text.split("");
-	  let letterIndex = 0;
-	  let intervalId = setInterval(function() {
-		if (letterIndex < letters.length) {
-		  container.textContent += letters[letterIndex];
-		  typeSound();
-		  bgmusic.play();
-		  letterIndex++;
-		} else {
-		  clearInterval(intervalId);
-		  returnSound();
-		  // setTimeout(function() {
-		  //   authorSound();
-		  //   author.textContent = text.text;
-		  // }, 1000);
+		function playMedia(media) {
+		  if (media.tagName === "VIDEO") {
+			media.play();
+		  }
 		}
-	  }, 50);
-	}
 
-	// Display the first text initially
-	displayText(texts[textIndex]);
+		function pauseMedia(media) {
+		  if (media.tagName === "VIDEO") {
+			media.pause();
+		  }
+		}
+		
+		
+		function nextSlide() {
+		  var currentMedia = slides[currentSlide].querySelector(".media");
+		  pauseMedia(currentMedia);
+		  currentMedia.className = "media";
 
-	// Refresh the text every specified duration
-	setInterval(function() {
-	  document.getElementById("quote").innerHTML = "";
-	  document.getElementById("author").innerHTML = "";
-	  textIndex = (textIndex + 1) % texts.length; // Increment the index and wrap around
-	  const text = texts[textIndex];
-	  displayText(text);
-	  setTimeout(returnSound, text.duration - 1000);
-	}, 15000);
-	</script>
+		  bgmusic.play();
+		  bgmusic.volume = volumeSlider.value;
+
+		  currentSlide = (currentSlide + 1) % slides.length;
+		  var nextMedia = slides[currentSlide].querySelector(".media");
+		  playMedia(nextMedia);
+		  nextMedia.className = "media active";
+		}
+		
+		slides[currentSlide].querySelector(".media").className = "media active";
+		playMedia(slides[currentSlide].querySelector(".media"));
+
+		  function changeVolume() {
+			bgmusic.volume = volumeSlider.value;
+			bgmusic.play();
+		  }
+
+		  window.onload = function() {
+			bgmusic.play();
+		  };
+
+		  document.getElementById("discord-button").onclick = function() {
+			window.location.href = "https://discord.gg/mM5qwG8CPr";
+		  };
+
+		  const texts = [
+			{
+			  text:
+				"Testtext1", //",
+			  delay: 5000,
+			},
+			{
+			  text:
+				"TestText2", //",
+			  delay: 1000,
+			},
+			{
+			  text:
+				"TestText3", //",
+			  delay: 1000,
+			},
+			{
+			  text: "Text 4",
+			  delay: 10000,
+			},
+			{
+			  text: "Text 5",
+			  delay: 1000,
+			},
+		  ];
+
+		  let textIndex = -1; // Keep track of the current text index
+
+		  // Function to display a text in the container
+		  function typeSound() {
+			let audio = new Audio(
+			  "https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3"
+			);
+			audio.volume = 0.1;
+			audio.play();
+			bgmusic.play();
+		  }
+
+		  function returnSound() {
+			let audio = new Audio(
+			  "https://cdn.discordapp.com/attachments/626156665430999061/1099012301572558848/typewriter-backspace-1.mp3"
+			);
+			audio.volume = 0.1;
+			audio.play();
+		  }
+
+		  function authorSound() {
+			let audio = new Audio(
+			  "https://cdn.discordapp.com/attachments/626156665430999061/1099012302268805281/typewriter-2.mp3"
+			);
+			audio.volume = 0.1;
+			audio.play();
+		  }
+
+		  // Function to display a text in the container
+		  function displayText(text) {
+			const container = document.getElementById("quote");
+			container.textContent = ""; // Clear the container
+
+			let letters = text.text.split("");
+			let letterIndex = 0;
+			let intervalId = setInterval(function() {
+			  if (letterIndex < letters.length) {
+				container.textContent += letters[letterIndex];
+				letterIndex++;
+				typeSound(); // Play the typing sound
+			  } else {
+				clearInterval(intervalId);
+				setTimeout(displayNextText, text.delay); // Wait for the delay before displaying the next text
+			  }
+			}, 50);
+		  }
+		  
+		  // Start the slideshow after a delay
+		  setTimeout(displayNextText, 2000);
+		  
+		  // Function to hide the quote container background and slideshow
+		function hideDisplay() {
+		  const displays = document.querySelectorAll(".quote-container-background");
+		  for (let i = 0; i < displays.length; i++) {
+			displays[i].style.visibility = "hidden";
+		  }
+		  document.querySelector("#slideshow").style.display = "none"; // Hide the slideshow
+		  document.querySelector("#quote-container").style.display = "none"; // Hide the quote container
+		  document.querySelector("#quotes").style.display = "none"; // Hide the quotes element
+
+		  // Call the displayFinalTexts function
+		  //displayFinalTexts();
+		}
+		
+				// Function to display the next text
+		  function displayNextText() {
+			textIndex++; // Increment the text index
+			if (textIndex >= texts.length) {
+			  // All texts have been displayed
+			  displayFinalTexts();
+			  hideDisplay();
+			} else {
+			  const text = texts[textIndex];
+			  nextSlide();
+			  displayText(text);
+			}
+		  }
+		  
+		function displayFinalTexts() {
+		  // Create the first text element
+		  var firstText = document.createElement("div");
+		  firstText.textContent = "Developed by Ata47 and S3an";
+		  firstText.style.position = "fixed";
+		  firstText.style.top = "50%";
+		  firstText.style.left = "50%";
+		  firstText.style.transform = "translate(-50%, -50%)";
+		  firstText.style.color = "red"; // Set the text color
+		  firstText.style.fontFamily = "Garamond"
+		  firstText.style.fontSize = "34px"; // Set the font size
+		  firstText.style.backgroundColor = "black"; // Set the background color
+		  firstText.style.padding = "10px"; // Set the padding
+		  firstText.style.zIndex = "20"; // Set a high z-index value
+		  document.body.appendChild(firstText);
+
+		  // Hide the first text after 3 seconds
+		  setTimeout(function() {
+			firstText.style.display = "none";
+
+				// Create the second text element
+				var secondText = document.createElement("div");
+				secondText.textContent = "Nutscript created by Chessnut and BlackTea";
+				secondText.style.position = "fixed";
+				secondText.style.top = "50%";
+				secondText.style.left = "50%";
+				secondText.style.transform = "translate(-50%, -50%)";
+				secondText.style.color = "red"; // Set the text color
+				secondText.style.fontFamily = "Garamond"
+				secondText.style.fontSize = "34px"; // Set the font size
+				secondText.style.backgroundColor = "black"; // Set the background color
+				secondText.style.padding = "10px"; // Set the padding
+				secondText.style.zIndex = "20"; // Set a high z-index value
+				document.body.appendChild(secondText);
+				
+			  setTimeout(function() {
+				secondText.style.display = "none";
+			  }, 5000);
+		  }, 5000);
+		}
+		</script>
 </body>
 </html>
