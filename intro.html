@@ -191,20 +191,25 @@
 
 		function playMedia(media) {
 		  if (media.tagName === "VIDEO" && media.paused) {
-			media.play();
+			setTimeout(function() {
+			  media.play();
+			}, 500);
 		  }
 		}
 
 		function pauseMedia(media) {
 		  if (media.tagName === "VIDEO") {
-			media.pause();
+			setTimeout(function() {
+			  media.pause();
+			}, 500);
 		  }
 		}
 		
-		
 		function nextSlide() {
 		  var currentMedia = slides[currentSlide].querySelector(".media");
-		  currentMedia.pause();
+			setTimeout(function() {
+			  currentMedia.pause();
+			}, 1000);
 		  currentMedia.className = "media";
 
 		  bgmusic.play();
