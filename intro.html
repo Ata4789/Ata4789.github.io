@@ -29,7 +29,7 @@
       padding: 0;
       background-color: #000;
 	  color: #0f0;
-	  font-family: monospace;
+	  font-family: 'INFECTED', sans-serif;
 	  text-align: center;
 	  z-index: 0;
     }
@@ -70,6 +70,7 @@
 	#quote {
 		font-family: "Courier New", Courier, monospace;
 		font-size: 17px;
+		text-align: justify;
 		line-height: 1.5;
 		z-index: 50;
 	}
@@ -116,13 +117,16 @@
 	}
 
 	#overlay {
-		position: absolute;
-		top: 50px;
-		left: 50px;
-		width: 175px;
-		height: 175px;
-		z-index: 2;
-    }
+	  display: none;
+	  position: fixed;
+	  top: 35%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  width: 350px; /* Adjust the width as needed */
+	  height: 350px; /* Adjust the height as needed */
+	  z-index: 25;
+	}
+
 	#volume-slider {
 		position: absolute;
 		bottom: 0;
@@ -137,11 +141,10 @@
 		width: 100%;
 	}
 	@font-face {
-	  font-family: 'INFECTED';
-	  src: url('assets/INFECTED.ttf') format('ttf'),
-	  /* Add more src lines for different font formats if necessary */
-	  font-weight: normal;
-	  font-style: normal;
+		font-family: 'INFECTED';
+		src: url('assets/INFECTED.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
 	}
   </style>
 	<link href="assets/INFECTED.ttf" rel="stylesheet">
@@ -155,47 +158,42 @@
 	
 	<div class="quote-container-background"></div>
 	
-	<div id="overlay">
-		<img src="https://i.imgur.com/yvat4V4.png" width="175" height="175">
-	</div>
+
 	
 	<a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
 	
 	<audio id="bgmusic" loop>
-		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1098754765162283038/loading_screen.ogg" type="audio/ogg">
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111041378051440640/Edward_Ikor_-_See_You_In_Hell_SCP-3667.mp3" type="audio/mp3">
 	</audio>
 	
 	<div id="volume-slider">
 		<input type="range" min="0" max="1" step="0.1" value="0.5" onchange="changeVolume()">
 	</div>
-
   <div id="slideshow">
 	<div class="slide">
-		<img src="https://i.imgur.com/3EoiJRm.jpg" class="media active">
+		<video class="media" loop>
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087444775936000/Garrys_Mod_x64_2023-05-25_02-18-24.mp4" type="video/mp4">
+		</video>
 	</div>
 	<div class="slide">
-		<img src="https://i.imgur.com/JuGVvZp.jpg" class="media">
+		<video class="media" loop>
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087444775936000/Garrys_Mod_x64_2023-05-25_02-18-24.mp4" type="video/mp4">
+		</video>
 	</div>
 	<div class="slide">
-		<video src="https://cdn.discordapp.com/attachments/1074510396720947221/1109664686686879754/Garrys_Mod_x64_2023-05-21_04-09-13.mp4" class="media"></video>
+		<video class="media" loop>
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087441995104326/Garrys_Mod_x64_2023-05-25_02-20-14.mp4" type="video/mp4">
+		</video>
 	</div>
 	<div class="slide">
-		<img src="https://i.imgur.com/rsj7tSx.jpg" class="media">
-	</div>
-	<div class="slide">
-		<img src="https://i.imgur.com/qP9lmIP.jpg" class="media">
-	</div>
-
-	<div class="slide">
-		<img src="https://i.imgur.com/BOlwVj3.jpg" class="media">
-	</div>
-	<div class="slide">
-		<img src="https://i.imgur.com/9vwj0fH.jpg" class="media">
-	</div>
-	<div class="slide">
-		<img src="https://i.imgur.com/5qAgUo9.jpg" class="media">
+		<video class="media" loop>
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087438929076244/Garrys_Mod_x64_2023-05-25_02-23-38.mp4" type="video/mp4">
+		</video>
 	</div>
   </div>
+	<div id="overlay">
+	  <img id="domino" src="https://i.imgur.com/yvat4V4.png" width="350" height="350">
+	</div>
 
 	<script>
 		  var slideshow = document.getElementById("slideshow");
@@ -251,17 +249,17 @@
 		  const texts = [
 			{
 			  text:
-				"Test123", //",
+				"The energy crisis along with mounting pressure by the public would push the United States to adopt more renewable energy sources such as nuclear energy to reduce the reliance upon non-renewables like oil and gas. This fast adoption of nuclear power would prove to be a clumsy and an uncalculated move when recently built nuclear power plants in the Midwest and East Coast would melt down./Nearly a million people would be exposed to radiation within the affected areas, causing many ill-effects. Biotegris, a pharmaceutical company approaches the United States government for subsidies to fund a new anti-radiation drug named Dioxiodine, which can be administered by injection or orally./FDA director Brian Moore, with Biotegris in his pockets, gets the new drug approved hastily with no clinical trials conducted to prove its safety and effectiveness. FEMA director Edward J Almos would order millions of doses of Dioxiodine to be sent to clinics and hospitals in affected areas./Weeks after waves of doses, people began exhibiting behaviors of extreme violence, aggression, and hostility to people who have not received doses of Dioxiodine. The Emergency Alert System would be broadcasted across the country, with marshal law and lawlessness ensuing as law enforcement and the military are overwhelmed by mass riots, chaos, and the 'people' exhibiting extreme violence, aggression, and hostility as a result of taking Dioxiodine.",
 			  delay: 5000,
 			},
 			{
 			  text:
-				"Test123", //",
+				"One by one, all of you are rounded up and placed on buses, transporting you all towards whatever nearest refugee zone still had available space to take in more people. This vehicle experiences a shortage of gas and other mechanical problems as soon as the bus you're on enters the abandoned city of Holston, Pennsylvania. A city that is one of many others is on the route your driver is taking; the place itself was abandoned a week and a half ago; those previously stated problems finally bring the transport to a grinding halt; the driver, alongside whatever national guardsmen are present, reassures you that the vehicle will continue moving as soon as these problems are taken care of./All four men leave the bus. The driver opens the hood and inspects the engine for any damages before moving to siphon gas from any surrounding vehicles left behind during the panic. The guardsmen search the area for any threats, expecting nothing as the city has been quiet ever since they entered the city.", //",
 			  delay: 5000,
 			},
 			{
 			  text:
-				"Test", //",
+				"An hour later, you all hear gunshots, followed by screaming and panic. You see nothing through the windows, though. You all stay inside the bus, afraid to move or go outside. Finally, one figure is seen running towards the bus, waving his hands in the air and shouting for you all to start the bus. As he is leapt upon by a group of people, if you could even call them that anymore, they claw into him, biting or even using blunt or sharp objects to kill the man as he attempts to plea for help. Using his death as a distraction, you all scatter, running out of the bus, splitting off into groups, or going alone into the cities more rural areas, this whole city is placed under a heavy exclusion zone, just by being here without any sort of government or military personnel with you is a death warrant.", //",
 			  delay: 5000,
 			},
 		  ];
@@ -273,7 +271,7 @@
 			let audio = new Audio(
 			  "https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3"
 			);
-			audio.volume = 0.1;
+			audio.volume = volumeSlider.value*0.1;
 			audio.play();
 			bgmusic.play();
 		  }
@@ -282,7 +280,7 @@
 			let audio = new Audio(
 			  "https://cdn.discordapp.com/attachments/626156665430999061/1099012301572558848/typewriter-backspace-1.mp3"
 			);
-			audio.volume = 0.1;
+			audio.volume = volumeSlider.value*0.1;
 			audio.play();
 		  }
 
@@ -290,8 +288,21 @@
 			let audio = new Audio(
 			  "https://cdn.discordapp.com/attachments/626156665430999061/1099012302268805281/typewriter-2.mp3"
 			);
-			audio.volume = 0.1;
+			audio.volume = volumeSlider.value*0.1;
 			audio.play();
+		  }
+		  
+		  function dominoSound() {
+		  	let audio = new Audio(
+			  "https://cdn.discordapp.com/attachments/626156665430999061/1111060076434837597/Dominos_Falling_Over_Sound_Effect.mp3"
+			);
+			audio.volume = volumeSlider.value*0.5;
+			audio.play();
+		  }
+		  
+		  function showOverlay() {
+		    var overlay = document.getElementById("overlay");
+		    overlay.style.display = "block";
 		  }
 
 		  // Function to display a text in the container
@@ -301,11 +312,18 @@
 
 			let letters = text.text.split("");
 			let letterIndex = 0;
+			let content = ""; // Store the modified HTML content
+
 			let intervalId = setInterval(function() {
 			  if (letterIndex < letters.length) {
-				container.textContent += letters[letterIndex];
+				if (letters[letterIndex] === '/') {
+				  content += "<br>"; // Add a line break
+				} else {
+				  content += letters[letterIndex];
+				}
 				letterIndex++;
 				typeSound(); // Play the typing sound
+				container.innerHTML = content; // Update the container's HTML content
 			  } else {
 				clearInterval(intervalId);
 				setTimeout(displayNextText, text.delay); // Wait for the delay before displaying the next text
@@ -324,7 +342,6 @@
 		  }
 		  document.querySelector("#slideshow").style.display = "none"; // Hide the slideshow
 		  document.querySelector("#quote-container").style.display = "none"; // Hide the quote container
-		  document.querySelector("#quotes").style.display = "none"; // Hide the quotes element
 
 		  // Call the displayFinalTexts function
 		  //displayFinalTexts();
@@ -343,46 +360,92 @@
 			  displayText(text);
 			}
 		  }
-		  
+		
 		function displayFinalTexts() {
 		  // Create the first text element
 		  var firstText = document.createElement("div");
-		  firstText.textContent = "Developed by Ata47 and S3an";
+		  firstText.innerHTML = 'Developers:<br><span style="font-size: 36px;">Ata47</span><br><span style="font-size: 36px;">S3an</span><br><span style="font-size: 36px;">TovarischPootis</span>';
 		  firstText.style.position = "fixed";
 		  firstText.style.top = "50%";
 		  firstText.style.left = "50%";
 		  firstText.style.transform = "translate(-50%, -50%)";
-		  firstText.style.color = "red"; // Set the text color
-		  firstText.style.fontFamily = "INFECTED"
-		  firstText.style.fontSize = "34px"; // Set the font size
+		  firstText.style.color = "rgb(220, 20, 60)"; // Set the text color
+		  firstText.style.fontFamily = "INFECTED";
+		  firstText.style.fontSize = "54px"; // Set the font size
 		  firstText.style.backgroundColor = "black"; // Set the background color
 		  firstText.style.padding = "10px"; // Set the padding
 		  firstText.style.zIndex = "20"; // Set a high z-index value
 		  document.body.appendChild(firstText);
-
 		  // Hide the first text after 3 seconds
 		  setTimeout(function() {
 			firstText.style.display = "none";
+			// Create the second text element
+			var secondText = document.createElement("div");
+			secondText.innerHTML = 'Story Developed by the Domino Team<br><span style="font-size: 36px;">Original Story Concept Imagined by Bozman</span>';
+			secondText.style.position = "fixed";
+			secondText.style.top = "50%";
+			secondText.style.left = "50%";
+			secondText.style.transform = "translate(-50%, -50%)";
+			secondText.style.color = "rgb(153, 50, 204)"; // Set the text color
+			secondText.style.fontFamily = "INFECTED";
+			secondText.style.fontSize = "54px"; // Set the font size
+			secondText.style.backgroundColor = "black"; // Set the background color
+			secondText.style.padding = "10px"; // Set the padding
+			secondText.style.zIndex = "20"; // Set a high z-index value
+			document.body.appendChild(secondText);
 
-				// Create the second text element
-				var secondText = document.createElement("div");
-				secondText.textContent = "Nutscript created by Chessnut and BlackTea";
-				secondText.style.position = "fixed";
-				secondText.style.top = "50%";
-				secondText.style.left = "50%";
-				secondText.style.transform = "translate(-50%, -50%)";
-				secondText.style.color = "red"; // Set the text color
-				secondText.style.fontFamily = "INFECTED"
-				secondText.style.fontSize = "34px"; // Set the font size
-				secondText.style.backgroundColor = "black"; // Set the background color
-				secondText.style.padding = "10px"; // Set the padding
-				secondText.style.zIndex = "20"; // Set a high z-index value
-				document.body.appendChild(secondText);
-				
+			setTimeout(function() {
+			  secondText.style.display = "none";
+
+			  var thirdText = document.createElement("div");
+			  thirdText.innerHTML = "Nutscript created by Chessnut and BlackTea";
+			  thirdText.style.position = "fixed";
+			  thirdText.style.top = "50%";
+			  thirdText.style.left = "50%";
+			  thirdText.style.transform = "translate(-50%, -50%)";
+			  thirdText.style.color = "rgb(147, 112, 219)"; // Set the text color
+			  thirdText.style.fontFamily = "INFECTED";
+			  thirdText.style.fontSize = "54px"; // Set the font size
+			  thirdText.style.backgroundColor = "black"; // Set the background color
+			  thirdText.style.padding = "10px"; // Set the padding
+			  thirdText.style.zIndex = "20"; // Set a high z-index value
+			  document.body.appendChild(thirdText);
+
 			  setTimeout(function() {
-				secondText.style.display = "none";
-			  }, 5000);
-		  }, 5000);
+				thirdText.style.display = "none";
+				// To unhide the element
+				dominoSound();
+				setTimeout(function() {
+					bgmusic.stop();
+					showOverlay();
+					var fourthText = document.createElement("div");
+					  fourthText.innerHTML = "A Domino Production";
+					  fourthText.style.position = "fixed";
+					  fourthText.style.top = "50%";
+					  fourthText.style.left = "50%";
+					  fourthText.style.transform = "translate(-50%, -50%)";
+					  fourthText.style.color = "rgb(69, 0, 130)"; // Set the text color
+					  fourthText.style.fontFamily = "INFECTED";
+					  fourthText.style.fontSize = "55px"; // Set the font size
+					  fourthText.style.backgroundColor = "black"; // Set the background color
+					  fourthText.style.padding = "10px"; // Set the padding
+					  fourthText.style.zIndex = "20"; // Set a high z-index value
+					  document.body.appendChild(fourthText);
+					  
+					setTimeout(function() {
+						fourthText.style.display = "none";
+						document.querySelector("#discord-button").style.display = "none"; // Hide the slideshow
+						document.querySelector("#volume-slider").style.display = "none"; // Hide the quote container
+						document.querySelector("#overlay").style.display = "none"; // Hide the quotes element
+					}, 5000);
+				}, 1000);
+			  }, 4000);
+			}, 5000);
+		  }, 6000);
+		}
+		function showOverlay() {
+		  var overlay = document.getElementById('overlay');
+		  overlay.style.display = 'block';
 		}
 		</script>
 </body>
