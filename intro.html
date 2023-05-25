@@ -187,21 +187,18 @@
 		  var currentSlide = 0;
 		  var bgmusic = document.getElementById("bgmusic");
 		  var volumeSlider = document.querySelector("#volume-slider input");
-		  var mediaElement = document.getElementById('media');
 
 
 		function playMedia(media) {
 		  if (media.tagName === "VIDEO" && media.paused) {
-		    mediaElement.addEventListener('loadedmetadata', function() {
-			mediaElement.play();
-		  })
+			media.play();
+		  }
 		}
 
 		function pauseMedia(media) {
 		  if (media.tagName === "VIDEO") {
-			mediaElement.addEventListener('loadedmetadata', function() {
-			mediaElement.pause();
-		  })
+			media.pause();
+		  }
 		}
 		
 		function nextSlide() {
