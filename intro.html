@@ -190,7 +190,7 @@
 
 
 		function playMedia(media) {
-		  if (media.tagName === "VIDEO") {
+		  if (media.tagName === "VIDEO" && media.paused) {
 			media.play();
 		  }
 		}
@@ -204,7 +204,7 @@
 		
 		function nextSlide() {
 		  var currentMedia = slides[currentSlide].querySelector(".media");
-		  pauseMedia(currentMedia);
+		  currentMedia.pause();
 		  currentMedia.className = "media";
 
 		  bgmusic.play();
