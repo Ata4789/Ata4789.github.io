@@ -194,14 +194,14 @@
 		  if (media.tagName === "VIDEO" && media.paused) {
 		    mediaElement.addEventListener('loadedmetadata', function() {
 			mediaElement.play();
-		  }
+		  })
 		}
 
 		function pauseMedia(media) {
 		  if (media.tagName === "VIDEO") {
 			mediaElement.addEventListener('loadedmetadata', function() {
 			mediaElement.pause();
-		  }
+		  })
 		}
 		
 		function nextSlide() {
