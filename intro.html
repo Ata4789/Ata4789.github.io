@@ -164,17 +164,17 @@
 	</div>
 	<div class="slide">
 		<video class="media" loop>
-			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087444775936000/Garrys_Mod_x64_2023-05-25_02-18-24.mp4" type="video/mp4">
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087444775936000/Garrys_Mod_x64_2023-05-25_02-18-24.mp4" type='video/mp4'>
 		</video>
 	</div>
 	<div class="slide">
 		<video class="media" loop>
-			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087441995104326/Garrys_Mod_x64_2023-05-25_02-20-14.mp4" type="video/mp4">
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087441995104326/Garrys_Mod_x64_2023-05-25_02-20-14.mp4" type='video/mp4'>
 		</video>
 	</div>
 	<div class="slide">
 		<video class="media" loop>
-			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087438929076244/Garrys_Mod_x64_2023-05-25_02-23-38.mp4" type="video/mp4">
+			<source src="https://cdn.discordapp.com/attachments/626156665430999061/1111087438929076244/Garrys_Mod_x64_2023-05-25_02-23-38.mp4" type='video/mp4'>
 		</video>
 	</div>
   </div>
@@ -186,19 +186,6 @@
 		  var bgmusic = document.getElementById("bgmusic");
 		  var volumeSlider = document.querySelector("#volume-slider input");
 
-
-		function playMedia(media) {
-		  if (media.tagName === "VIDEO") {
-			media.play();
-		  }
-		}
-
-		function pauseMedia(media) {
-		  if (media.tagName === "VIDEO") {
-			media.pause();
-		  }
-		}
-		
 		function nextSlide() {
 		  var currentMedia = slides[currentSlide].querySelector(".media");
 		  pauseMedia(currentMedia);
@@ -211,6 +198,18 @@
 		  var nextMedia = slides[currentSlide].querySelector(".media");
 		  playMedia(nextMedia);
 		  nextMedia.className = "media active";
+		}
+
+		function playMedia(media) {
+		  if (media.tagName === "VIDEO") {
+			media.play();
+		  }
+		}
+
+		function pauseMedia(media) {
+		  if (media.tagName === "VIDEO") {
+			media.pause();
+		  }
 		}
 		
 		slides[currentSlide].querySelector(".media").className = "media active";
