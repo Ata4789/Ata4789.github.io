@@ -1,63 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <title>WebM Video Player</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: black;
-        }
-        
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        #volume-container {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            width: 150px;
-            height: 30px;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 5px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        #volume-slider {
-            width: 100%;
-            margin-left: 10px;
-        }
+      html,
+      body,
+      video {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
     </style>
-</head>
-<body>
-    <div id="video-container">
-        <video id="video" src="https://cdn.discordapp.com/attachments/698054967923048538/1126133815325245520/Unbenanntes_Video_12.mp4" controls autoplay></video>
-    </div>
-    <div id="volume-container">
-        <label for="volume-slider">Volume:</label>
-        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
-    </div>
-
-    <script>
-        var video = document.getElementById("video");
-        var volumeSlider = document.getElementById("volume-slider");
-
-        volumeSlider.addEventListener("input", function() {
-            video.volume = volumeSlider.value;
-        });
-    </script>
-</body>
+  </head>
+  <body>
+    <video controls autoplay fullscreen>
+      <source src="https://cdn.discordapp.com/attachments/626156665430999061/1126251947138224229/Domino_Intro.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </body>
 </html>
