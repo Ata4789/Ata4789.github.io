@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Domino - First Assignment</title>
+
+	<meta name="theme-color" content="#ffffff">
+  
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+	  color: #0f0;
+	  font-family: monospace;
+	  text-align: center;
+    }
+
+    #slideshow {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #slideshow img.active {
+      opacity: 1;
+    }
+
+	#overlay {
+		position: absolute;
+		top: 75px;
+		left: 75px;
+		width: 175px;
+		height: 175px;
+		z-index: 1;
+		display: none;
+    }
+  </style>
+</head>
+<body>
+
+	<div id="quote-container">
+      <div id="quote"></div>
+      <div id="author"></div>
+    </div>
+
+	<audio id="bgmusic" loop>
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1126482844949155890/Star-Wars-Battlefront-OST-Sullust-Loading-Loop-C.ogg" type="audio/ogg">
+	</audio>
+
+  <div id="slideshow">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126484725553442857/stars_space_dark_139528_1920x1080.png" class="active">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1126482985034719242/atat.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482985462546504/cloudcity.jpeg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482985806463127/coruscant.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482986251067402/fleet.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482986859249705/gozanti_1.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482987198980137/interceptor.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1126482988083970060/isd.jpg">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1126482988927033415/tatooine.jpeg?width=1618&height=910">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1126482989384204338/tie.jpeg?width=1618&height=910">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1126482989891723274/walker.jpeg?width=1618&height=910">
+  </div>
+
+	<div id="overlay">
+		<img src="https://media.discordapp.net/attachments/626156665430999061/1126480676263301191/Ebene_5.png" width="175" height="175">
+	</div>
+
+  <script>
+    var slideshow = document.getElementById("slideshow");
+    var images = slideshow.getElementsByTagName("img");
+    var currentImage = 0;
+	var bgmusic = document.getElementById("bgmusic");
+	var overlay = document.getElementById("overlay");
+	
+	bgmusic.volume = 0.15
+	
+    function nextImage() {
+      images[currentImage].className = "";
+	  bgmusic.play();
+
+	  bgmusic.volume= 0.15,
+      currentImage = (currentImage + 1) % images.length;
+      images[currentImage].className = "active";
+	  
+	  setTimeout(function () {
+		overlay.style.display = "block";
+	  }, 1000);
+	  
+      setTimeout(nextImage, 14000);
+    }
+	
+    images[currentImage].className = "active";
+	setTimeout(function () {
+		nextImage(); // Start the slideshow
+	}, 3000);
+	bgmusic.play();
+
+	window.onload = function() {
+		bgmusic.play();
+		bgmusic.volume = 0.15
+	}
+  </script>
+  
+  <script>
+	window.onload = function() {
+		bgmusic.play();
+	}
+</script>
+
+</body>
+</html>
