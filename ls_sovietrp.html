@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Domino - No Step Back</title>
+
+	<meta name="theme-color" content="#ffffff">
+  
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+	  color: #0f0;
+	  font-family: monospace;
+	  text-align: center;
+    }
+
+    #slideshow {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #slideshow img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #slideshow img.active {
+      opacity: 1;
+    }
+
+	#overlay {
+		position: absolute;
+		top: 75px;
+		left: 75px;
+		width: 175px;
+		height: 175px;
+		z-index: 1;
+		display: none;
+    }
+  </style>
+</head>
+<body>
+
+	<div id="quote-container">
+      <div id="quote"></div>
+      <div id="author"></div>
+    </div>
+
+	<audio id="bgmusic" loop>
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1136515638211395655/The_Red_Army_Choir_-_The_Red_Army_Is_the_Strongest.ogg" type="audio/ogg">
+	</audio>
+
+  <div id="slideshow">
+    <img src="https://cdn.discordapp.com/attachments/626156665430999061/1136519807215337543/domino_production.png" class="active">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521255487549490/6091c03015e9f930765e2467.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259069485116/Operationbagration-0.webp">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259446960168/6447a482c91e031738676130.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259744759828/5eabdd1015e9f94c3a422efb.jpg?width=1340&height=754">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521261124681788/red_army_japan.jpg?width=1340&height=754">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260814315570/642d801bec244f024b54eb9a.jpg?width=1340&height=754">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260503928842/soviet-stalingrad-gettyimages-3289320.jpg?width=1340&height=754">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521260256460840/5ef083a385600a693759686b.jpg?width=1340&height=754">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261388927036/6094fea615e9f966f865e05f.jpg?width=1340&height=754">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261665759352/5d4d43d585600a0462410713.jpg?width=1340&height=754">
+  </div>
+
+	<div id="overlay">
+		<img src="https://media.discordapp.net/attachments/626156665430999061/1136515785121075200/1.png" width="175" height="175">
+	</div>
+
+  <script>
+    var slideshow = document.getElementById("slideshow");
+    var images = slideshow.getElementsByTagName("img");
+    var currentImage = 0;
+	var bgmusic = document.getElementById("bgmusic");
+	var overlay = document.getElementById("overlay");
+	
+	bgmusic.volume = 0.15
+	
+    function nextImage() {
+      images[currentImage].className = "";
+	  bgmusic.play();
+
+	  bgmusic.volume= 0.15,
+      currentImage = (currentImage + 1) % images.length;
+      images[currentImage].className = "active";
+	  
+	  setTimeout(function () {
+		overlay.style.display = "block";
+	  }, 1000);
+	  
+      setTimeout(nextImage, 9000);
+    }
+	
+    images[currentImage].className = "active";
+	setTimeout(function () {
+		nextImage(); // Start the slideshow
+	}, 3000);
+	bgmusic.play();
+
+	window.onload = function() {
+		bgmusic.play();
+		bgmusic.volume = 0.15
+	}
+  </script>
+  
+  <script>
+	window.onload = function() {
+		bgmusic.play();
+	}
+</script>
+
+</body>
+</html>
