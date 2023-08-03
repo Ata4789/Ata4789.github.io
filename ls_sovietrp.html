@@ -42,7 +42,7 @@
 
 	#overlay {
 		position: absolute;
-		top: 75px;
+		bottom: 75px;
 		left: 75px;
 		width: 175px;
 		height: 175px;
@@ -59,21 +59,21 @@
     </div>
 
 	<audio id="bgmusic" loop>
-		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1136515638211395655/The_Red_Army_Choir_-_The_Red_Army_Is_the_Strongest.ogg" type="audio/ogg">
+		<source src="https://cdn.discordapp.com/attachments/626156665430999061/1136525349140824114/The_Red_Army_Choir_-_The_Red_Army_Is_the_Strongest.ogg" type="audio/ogg">
 	</audio>
 
   <div id="slideshow">
-    <img src="https://cdn.discordapp.com/attachments/626156665430999061/1136519807215337543/domino_production.png" class="active">
+    <img src="https://cdn.discordapp.com/attachments/626156665430999061/1136519807215337543/domino_production.png" class="active first-image">
 	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521255487549490/6091c03015e9f930765e2467.jpg">
     <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259069485116/Operationbagration-0.webp">
     <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259446960168/6447a482c91e031738676130.jpg">
-    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259744759828/5eabdd1015e9f94c3a422efb.jpg?width=1340&height=754">
-    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521261124681788/red_army_japan.jpg?width=1340&height=754">
-    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260814315570/642d801bec244f024b54eb9a.jpg?width=1340&height=754">
-    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260503928842/soviet-stalingrad-gettyimages-3289320.jpg?width=1340&height=754">
-	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521260256460840/5ef083a385600a693759686b.jpg?width=1340&height=754">
-	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261388927036/6094fea615e9f966f865e05f.jpg?width=1340&height=754">
-	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261665759352/5d4d43d585600a0462410713.jpg?width=1340&height=754">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521259744759828/5eabdd1015e9f94c3a422efb.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521261124681788/red_army_japan.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260814315570/642d801bec244f024b54eb9a.jpg">
+    <img src="https://media.discordapp.net/attachments/626156665430999061/1136521260503928842/soviet-stalingrad-gettyimages-3289320.jpg">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521260256460840/5ef083a385600a693759686b.jpg">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261388927036/6094fea615e9f966f865e05f.jpg">
+	<img src="https://media.discordapp.net/attachments/626156665430999061/1136521261665759352/5d4d43d585600a0462410713.jpg">
   </div>
 
 	<div id="overlay">
@@ -81,39 +81,51 @@
 	</div>
 
   <script>
-    var slideshow = document.getElementById("slideshow");
-    var images = slideshow.getElementsByTagName("img");
-    var currentImage = 0;
+	var slideshow = document.getElementById("slideshow");
+	var images = slideshow.getElementsByTagName("img");
+	var currentImage = 0;
 	var bgmusic = document.getElementById("bgmusic");
 	var overlay = document.getElementById("overlay");
-	
-	bgmusic.volume = 0.15
-	
-    function nextImage() {
-      images[currentImage].className = "";
-	  bgmusic.play();
 
-	  bgmusic.volume= 0.15,
-      currentImage = (currentImage + 1) % images.length;
-      images[currentImage].className = "active";
-	  
-	  setTimeout(function () {
-		overlay.style.display = "block";
-	  }, 1000);
-	  
-      setTimeout(nextImage, 9000);
-    }
-	
-    images[currentImage].className = "active";
-	setTimeout(function () {
-		nextImage(); // Start the slideshow
-	}, 3000);
+	bgmusic.volume = 0.15;
+
+	function nextImage() {
+	  if (currentImage === 0) {
+		setTimeout(function () {
+		  overlay.style.display = "block";
+		}, 1000);
+		bgmusic.play();
+		bgmusic.volume = 0.15;
+		// If the current image is the first image, skip it and move to the second image
+		currentImage = 1;
+		images[currentImage - 1].classList.remove("active");
+		images[currentImage].classList.add("active");
+		
+	  } else {
+		// For the rest of the images, continue with normal rotation
+		images[currentImage].classList.remove("active");
+
+		currentImage = (currentImage + 1) % images.length;
+		images[currentImage].classList.add("active");
+
+		if (currentImage === images.length - 1) {
+		  // If the current image is the last image, stop the slideshow
+		  clearInterval(slideshowInterval);
+		}
+	  }
+	}
+
+	images[currentImage].classList.add("active");
+
+	var slideshowInterval = setInterval(nextImage, 9000); // Start the slideshow
+
 	bgmusic.play();
 
-	window.onload = function() {
-		bgmusic.play();
-		bgmusic.volume = 0.15
-	}
+	window.onload = function () {
+	  bgmusic.play();
+	  bgmusic.volume = 0.15;
+	};
+
   </script>
   
   <script>
