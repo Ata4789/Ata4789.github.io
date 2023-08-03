@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Domino - No Step Back</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      background-image: url("https://cdn.discordapp.com/attachments/626156665430999061/1136597246817878017/eeeqweqwe.png");
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    #mediaItem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-image: none;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    /* Style the text container */
+    #textContainer {
+      position: absolute;
+      bottom: 75px;
+      right: 75px;
+      width: 600px; /* Default width for the text container */
+      height: 400px; /* Default height for the text container */
+      font-family: 'Courier New', Courier, monospace; /* Typewriter font */
+      font-size: 24px;
+      color: red;
+      overflow: hidden; /* Hide the overflowing text */
+    }
+
+    /* Rounded container for text */
+    .textBlock {
+      position: fixed; /* Set position to fixed */
+      background-color: rgba(0, 0, 0, 0.5); /* 50% transparent dark grey */
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 600px; /* Default width for each text block */
+      height: 400px; /* Default height for each text block */
+      overflow: auto; /* Enable vertical scrolling for overflowing text */
+    }
+
+    /* Text content within the text block */
+    .textBlockContent {
+      /* Optionally, set padding if desired */
+      padding: 5px;
+    }
+
+    #discord-button {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      width: 70px;
+      height: 70px;
+      background-image: url(https://988lifeline.org/wp-content/uploads/2020/06/Discord-Logo-Color.png);
+      background-size: cover;
+      cursor: pointer;
+      z-index: 6;
+    }
+	
+	  #nextMediaItem {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-image: none;
+		opacity: 0;
+		transition: opacity 1s;
+	  }
+  </style>
+</head>
+
+<body>
+  <div id="mediaItem"></div>
+  <div id="nextMediaItem"></div> <!-- Add the #nextMediaItem element -->
+  <div id="textContainer"></div>
+  
+  <a id="discord-button" href="https://discord.gg/mM5qwG8CPr"></a>
+
+  <!-- Add an audio element for the typing sound -->
+  <audio id="typingSound" volume="0.2">
+    <source src="https://cdn.discordapp.com/attachments/626156665430999061/1099006912638484520/typewriter_sound.mp3" type="audio/mpeg">
+  </audio>
+  
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="https://cdn.discordapp.com/attachments/626156665430999061/1136515637787758692/Dark_Is_The_Night_With_Gunfire_In_The_Background.ogg" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Media items array with links and durations (in milliseconds)
+    const mediaItems = [
+      {
+        link: "https://cdn.discordapp.com/attachments/626156665430999061/1136568563583418558/molotov.png",
+        duration: 3000
+      },
+      {
+        link: "https://media.discordapp.net/attachments/626156665430999061/1136521261124681788/red_army_japan.jpg",
+        duration: 10000
+      },
+      {
+        link: "https://media.discordapp.net/attachments/626156665430999061/1136521261665759352/5d4d43d585600a0462410713.jpg",
+        duration: 3000
+      },
+      {
+        link: "https://media.discordapp.net/attachments/626156665430999061/1136521259983843328/63e8a8b794feb2731b2b7c61.jpg",
+        duration: 5000
+      },
+      // Add more media items as needed
+    ];
+
+    // Text blocks array with titles, texts, and durations (in milliseconds)
+    const textBlocks = [
+      {
+        title: "23rd of August, 1939",
+        text: "The 'German-Soviet Non-Aggression Pact' has been signed by General Secretary of the Communist Party of the Soviet Union Joseph Stalin and Minister of Foreign Affairs of the German Empire Joachim von Ribbentrop and publicised. This pact would guarantee the German Empire soviet neutrality for the planned invasion of Poland and in case of western intervention.",
+        duration: 25000,
+        width: 30, // Set custom width for this text
+        height: 30, // Set custom height for this text
+        right: 3, // Set custom distance from the right for this text
+        bottom: 3, // Set custom distance from the bottom for this text
+      },
+      {
+        title: "Title 2",
+        text: "Get ready for an exciting adventure!",
+        duration: 7000,
+        width: 30, // Set custom width for this text
+        height: 30, // Set custom height for this text
+        left: 3, // Set custom distance from the right for this text
+        bottom: 3, // Set custom distance from the bottom for this text
+      },
+      {
+        title: "Title 3",
+        text: "Have fun playing!",
+        duration: 3000,
+        width: 50, // Set custom width for this text
+        height: 50, // Set custom height for this text
+        right: 1, // Set custom distance from the right for this text
+        bottom: 40, // Set custom distance from the bottom for this text
+      },
+      // Add more text blocks as needed
+    ];
+
+    let textIndex = 0;
+	
+	let mediaIndex = 0;
+	const fadeInDuration = 1000; // Time (in milliseconds) for the fade-in transition
+	const fadeOutDuration = 1000; // Time (in milliseconds) for the fade-out transition
+
+
+    function typeText(textElement, text, index = 0) {
+      if (index < text.length) {
+        textElement.innerHTML += text.charAt(index);
+        document.getElementById("typingSound").currentTime = 0; // Restart typing sound for each letter
+        document.getElementById("typingSound").play(); // Play typing sound for each letter
+        setTimeout(() => typeText(textElement, text, index + 1), 52); // Adjust typing speed (milliseconds)
+        startBackgroundMusic();
+      }
+    }
+	
+	
+	function displayMedia() {
+		const mediaItem = document.getElementById("mediaItem");
+		const nextMediaItem = document.getElementById("nextMediaItem");
+
+		if (mediaIndex >= mediaItems.length) {
+		  // If all media items have been displayed, fade the last one to nothing and stop displaying media
+		  mediaItem.style.opacity = "0";
+		  return;
+		}
+
+		// Display the first media item immediately
+		if (mediaIndex === 0) {
+		  mediaItem.style.backgroundImage = `url(${mediaItems[mediaIndex].link})`;
+		  mediaItem.style.opacity = "1";
+		  setTimeout(() => {
+			// After the duration of the first media item, transition to the next media item
+			mediaIndex++;
+			displayMedia();
+		  }, mediaItems[mediaIndex].duration);
+		} else {
+		  // For subsequent media items, fade out the current one and fade in the next one
+		  nextMediaItem.style.opacity = "0";
+		  nextMediaItem.style.backgroundImage = `url(${mediaItems[mediaIndex].link})`;
+		  nextMediaItem.style.transition = `opacity ${fadeInDuration}ms`;
+		  mediaItem.style.transition = `opacity ${fadeOutDuration}ms`;
+
+		  setTimeout(() => {
+			// Fade out the current media item
+			mediaItem.style.opacity = "0";
+			nextMediaItem.style.opacity = "1";
+		  }, fadeOutDuration);
+
+		  setTimeout(() => {
+			nextMediaItem.style.transition = `opacity`;
+			mediaItem.style.transition = `opacity`;
+
+			mediaItem.style.backgroundImage = `url(${mediaItems[mediaIndex].link})`;
+			mediaItem.style.opacity = "1";
+			nextMediaItem.style.opacity = "0";
+		  }, fadeOutDuration + fadeInDuration);
+		  
+			
+		  setTimeout(() => {
+			// After the duration of the current media item, move to the next one
+			mediaIndex++;
+			displayMedia();
+		  }, mediaItems[mediaIndex].duration);
+		}
+	}
+	
+	function stopBackgroundMusic() {
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      backgroundMusic.pause();
+      backgroundMusic.currentTime = 0;
+    }
+
+    function startBackgroundMusic() {
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      backgroundMusic.play();
+    }
+	
+	
+	function setTypingSoundVolume(volume) {
+      const typingSound = document.getElementById("typingSound");
+      if (typingSound) {
+        typingSound.volume = volume;
+      }
+    }
+	
+    function displayText() {
+      const textContainer = document.getElementById("textContainer");
+
+      if (textIndex >= textBlocks.length) {
+        return;
+      }
+
+      const currentTextBlock = textBlocks[textIndex];
+      textContainer.style.width = `${currentTextBlock.width}%`;
+      textContainer.style.height = `${currentTextBlock.height}%`;
+      textContainer.style.right = `${currentTextBlock.right}%`; // Set custom distance from the right of the screen
+      textContainer.style.bottom = `${currentTextBlock.bottom}%`; // Set custom distance from the bottom of the screen
+
+      const textElement = document.createElement("div");
+      textElement.classList.add("textBlock");
+      textElement.style.width = `${currentTextBlock.width}%`;
+      textElement.style.height = `${currentTextBlock.height}%`;
+      textElement.style.right = `${currentTextBlock.right}%`;
+      textElement.style.left = `${currentTextBlock.left}%`; // Set custom distance from the left of the screen
+      textElement.style.bottom = `${currentTextBlock.bottom}%`;
+      textElement.style.top = `${currentTextBlock.top}%`; // Set custom distance from the top of the screen
+      textElement.innerHTML = `<b>${currentTextBlock.title}</b><br>`;
+      textContainer.appendChild(textElement);
+
+      const textBlockContent = document.createElement("div");
+      textBlockContent.classList.add("textBlockContent");
+      textElement.appendChild(textBlockContent);
+
+      setTimeout(() => {
+		backgroundMusic.play();
+        typeText(textBlockContent, currentTextBlock.text); // Start typing the text
+        if (textIndex === 0) {
+          startBackgroundMusic();
+        }
+      }, 500); // Delay typing to synchronize with the title display
+
+      setTimeout(() => {
+        textIndex++;
+        textContainer.removeChild(textElement);
+        displayText();
+      }, currentTextBlock.duration); // Adjust the duration of staying on the screen (milliseconds)
+    }
+	
+	
+    // Start the display of media and text
+    displayMedia();
+	setTypingSoundVolume(0.01);
+    displayText();
+  </script>
+</body>
+
+</html>
