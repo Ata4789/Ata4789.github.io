@@ -403,46 +403,10 @@
 				
 			  setTimeout(function() {
 				thirdText.style.display = "none";
-				var Domino = new Audio('https://cdn.discordapp.com/attachments/626156665430999061/1111060076434837597/Dominos_Falling_Over_Sound_Effect.mp3');
-				Domino.volume = 0.5;
-				Domino.play();
 				
 				bgmusic.pause();
-
-				// Create the overlay element
-				var overlay = document.createElement("div");
-				overlay.id = "overlay";
-				overlay.style.position = "fixed";
-				overlay.style.top = "35%";
-				overlay.style.left = "50%";
-				overlay.style.transform = "translate(-50%, -50%)";
-				overlay.style.width = "350px";
-				overlay.style.height = "350px";
-				overlay.style.zIndex = "25";
-				
-				// Create the image element inside the overlay
-				var image = document.createElement("img");
-				image.id = "domino";
-				image.src = "https://i.imgur.com/yvat4V4.png";
-				image.width = "350";
-				image.height = "350";
-				
-				overlay.appendChild(image);
-				document.body.appendChild(overlay);
-
-				var fourthText = document.createElement("div");
-				fourthText.innerHTML = "A Domino Production";
-				fourthText.style.position = "fixed";
-				fourthText.style.top = "55%";
-				fourthText.style.left = "50%";
-				fourthText.style.transform = "translate(-50%, -50%)";
-				fourthText.style.color = "rgb(69, 0, 130)"; // Set the text color
-				fourthText.style.fontFamily = "90days";
-				fourthText.style.fontSize = "50px"; // Set the font size
-				fourthText.style.backgroundColor = "black"; // Set the background color
-				fourthText.style.padding = "10px"; // Set the padding
-				fourthText.style.zIndex = "20"; // Set a high z-index value
-				document.body.appendChild(fourthText);
+				  
+			
 
 				setTimeout(function() {
 				  fourthText.style.display = "none";
