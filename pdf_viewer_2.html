@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        .pdf-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .pdf-page {
+            width: 100%;
+            max-width: 210mm; /* A4 width */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="pdf-container">
+        <embed src="pdfs/Aristotle-rhetoric.pdf#toolbar=0" class="pdf-page" type="application/pdf">
+    </div>
+</body>
+</html>
