@@ -31,17 +31,20 @@
         pdfjsLib.getDocument(url).promise.then(pdf => {
             for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                 pdf.getPage(pageNum).then(page => {
-                    const viewport = page.getViewport({ scale: 1.5 });
+                    const viewport = page.getViewport({ scale: 1 });
+                    const scale = container.clientWidth / viewport.width;
+                    const scaledViewport = page.getViewport({ scale: scale });
+
                     const canvas = document.createElement('canvas');
                     canvas.className = 'pdf-page';
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
+                    canvas.height = scaledViewport.height;
+                    canvas.width = scaledViewport.width;
                     container.appendChild(canvas);
 
                     const ctx = canvas.getContext('2d');
                     const renderContext = {
                         canvasContext: ctx,
-                        viewport: viewport
+                        viewport: scaledViewport
                     };
                     page.render(renderContext);
                 });
