@@ -14,9 +14,14 @@
         .pdf-container {
             height: 100%;
             overflow-y: scroll;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .pdf-page {
             width: 100%;
+            max-width: 210mm; /* A4 width */
+            height: auto;
             margin-bottom: 10px;
         }
     </style>
