@@ -28,36 +28,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const pdfFile = getQueryParam('file') || 'pdfs/Aristotle-rhetoric.pdf';
+            const container = document.getElementById('pdf-container');
+
+            pdfjsLib.getDocument(pdfFile).promise.then(pdf => {
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    pdf.getPage(pageNum).then(page => {
+                        const viewport = page.getViewport({ scale: 1 });
+                        const scale = container.clientWidth / viewport.width;
+                        const scaledViewport = page.getViewport({ scale: scale });
+
+                        const canvas = document.createElement('canvas');
+                        canvas.className = 'pdf-page';
+                        canvas.height = scaledViewport.height;
+                        canvas.width = scaledViewport.width;
+                        container.appendChild(canvas);
+
+                        const ctx = canvas.getContext('2d');
+                        const renderContext = {
+                            canvasContext: ctx,
+                            viewport: scaledViewport
+                        };
+                        page.render(renderContext);
+                    });
+                }
+            });
+        });
     </script>
 </head>
 <body>
     <div class="pdf-container" id="pdf-container"></div>
-    <script>
-        const url = 'pdfs/Aristotle-rhetoric.pdf';
-        const container = document.getElementById('pdf-container');
-
-        pdfjsLib.getDocument(url).promise.then(pdf => {
-            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                pdf.getPage(pageNum).then(page => {
-                    const viewport = page.getViewport({ scale: 1 });
-                    const scale = container.clientWidth / viewport.width;
-                    const scaledViewport = page.getViewport({ scale: scale });
-
-                    const canvas = document.createElement('canvas');
-                    canvas.className = 'pdf-page';
-                    canvas.height = scaledViewport.height;
-                    canvas.width = scaledViewport.width;
-                    container.appendChild(canvas);
-
-                    const ctx = canvas.getContext('2d');
-                    const renderContext = {
-                        canvasContext: ctx,
-                        viewport: scaledViewport
-                    };
-                    page.render(renderContext);
-                });
-            }
-        });
-    </script>
 </body>
 </html>
