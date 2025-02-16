@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Name Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        select, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Name Generator</h1>
+        <select id="gender-select">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <select id="nationality-select">
+            <option value="">Select Nationality</option>
+        </select>
+        <button onclick="generateName()">Generate Name</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const firstNames = {
+            John: {nationality: ["Welsh American","Vietnamese American","Swedish American","Scottish American","Polish American","Norwegian American","Native American","Korean American","Japanese American","Jamaican American","Italian American","Irish American","Hawaiian American","German American","Filipino American","English American","Dutch American","Chinese American","Canadian American","Armenian American","African American"], gender: "male"},
+            David: {nationality: ["Welsh American","Vietnamese American","Jewish American","Scottish American","Salvadoran American","Polish American","Native American","Korean American","Japanese American","Jamaican American","Italian American","Irish American","Hawaiian American","German American","French American","Franco Canadian American","Filipino American","English American","Dutch American","Chinese American","Canadian American","Armenian American","African American"], gender: "male"},
+            Robert: {nationality: ["Welsh American","Scottish American","Polish American","Native American","Japanese American","Jamaican American","Italian American","Irish American","German American","Franco Canadian American","Filipino American","English American","Dutch American","Canadian American","Armenian American"], gender: "male"},
+            James: {nationality: ["Welsh American","Vietnamese American","Scottish American","Polish American","Native American","Korean American","Japanese American","Jamaican American","Irish American","Hawaiian American","German American","Filipino American","English American","Dutch American","Chinese American","Canadian American","Armenian American","African American"], gender: "male"},
+            William: {nationality: ["Welsh American","Scottish American","Native American","Irish American","German American","Filipino American","English American","Dutch American","Colombian American","Canadian American"], gender: "male"},
+            Michael: {nationality: ["Welsh American","Vietnamese American","Jewish American","Scottish American","Polish American","Native American","Korean American","Japanese American","Jamaican American","Italian American","Irish American","Hawaiian American","German American","French American","Filipino American","English American","Dutch American","Danish American","Chinese American","Canadian American","Armenian American","African American"], gender: "male"},
+            Thomas: {nationality: ["Scottish American","Polish American","Italian American","Irish American","English American","Dutch American","Danish American","German American"], gender: "male"},
+            Joseph: {nationality: ["Polish American","Native American","Lebanese American","Italian American","German American","Filipino American","English American","Dutch American","Canadian American"], gender: "male"},
+            Christopher: {nationality: ["Welsh American","Native American","Korean American","Jamaican American","Italian American","English American","Armenian American","African American"], gender: "male"},
+            Daniel: {nationality: ["Welsh American","Vietnamese American","Swedish American","Polish American","Native American","Korean American","Japanese American","Italian American","Hawaiian American","Franco Canadian American","English American","Chinese American","Canadian American","Armenian American"], gender: "male"},
+            Charles: {nationality: ["German American"], gender: "male"},
+            Richard: {nationality: ["Scottish American","Polish American","Lebanese American","German American","Filipino American","Dutch American","Armenian American"], gender: "male"},
+            Edward: {nationality: ["Polish American","German American"], gender: "male"},
+            Brian: {nationality: ["Vietnamese American","Korean American","Japanese American","Jamaican American","Irish American","Hawaiian American","Filipino American","Chinese American","Canadian American","Armenian American","African American"], gender: "male"},
+            Kevin: {nationality: ["Vietnamese American","Korean American","Japanese American","Jamaican American","Irish American","Hawaiian American","Chinese American"], gender: "male"},
+            Jean: {nationality: ["Lebanese American","Haitian American","French American","Franco Canadian American"], gender: "male"},
+            Pierre: {nationality: ["Lebanese American","Haitian American","French American","Franco Canadian American"], gender: "male"},
+            Jacques: {nationality: ["Haitian American","French American"], gender: "male"},
+            Philippe: {nationality: ["Haitian American","French American"], gender: "male"},
+            Laurent: {nationality: ["French American"], gender: "male"},
+            Christophe: {nationality: ["French American"], gender: "male"},
+            Francois: {nationality: ["French American","Franco Canadian American"], gender: "male"},
+            Thierry: {nationality: ["French American"], gender: "male"},
+            Anthony: {nationality: ["Vietnamese American","Italian American","African American"], gender: "male"},
+            Frank: {nationality: ["Italian American"], gender: "male"},
+            Jose: {nationality: ["Salvadoran American", "Puerto Rican American", "Portuguese American", "Mexican American", "Hispanic American", "Ecuadoran American", "Dominican American", "Cuban American", "Colombian American"], gender: "male"},
+            Juan: {nationality: ["Salvadoran American", "Puerto Rican American", "Mexican American", "Hispanic American", "Ecuadoran American", "Dominican American", "Cuban American", "Colombian American"], gender: "male"},
+            Francisco: {nationality: ["Salvadoran American", "Portuguese American", "Mexican American", "Hispanic American", "Dominican American", "Cuban American"], gender: "male"},
+            Jesus: {nationality: ["Mexican American", "Hispanic American"], gender: "male"},
+            Miguel: {nationality: ["Salvadoran American", "Puerto Rican American", "Portuguese American", "Mexican American", "Hispanic American", "Ecuadoran American", "Dominican American", "Cuban American", "Colombian American"], gender: "male"},
+            Antonio: {nationality: ["Salvadoran American", "Portuguese American", "Mexican American", "Hispanic American", "Cuban American"], gender: "male"},
+            Alejandro: {nationality: ["Mexican American", "Cuban American"], gender: "male"},
+            Manuel: {nationality: ["Puerto Rican American", "Portuguese American", "Mexican American", "Dominican American", "Cuban American"], gender: "male"},
+            // Add more first names here
+        };
+
+        const lastNames = {
+            Nagy: {nationality: ["Hungarian American"]},
+            Kucera: {nationality: ["Czech American"]},
+            Vlcek: {nationality: ["Czech American"]},
+            Marek: {nationality: ["Czech American"]},
+            Kral: {nationality: ["Czech American"]},
+            Pospisil: {nationality: ["Czech American"]},
+            Fernandez: {nationality: ["Cuban American"]},
+            Alvarez: {nationality: ["Cuban American"]},
+            Wang: {nationality: ["Chinese American"]},
+            Li: {nationality: ["Chinese American"]},
+            Zhang: {nationality: ["Chinese American"]},
+            Liu: {nationality: ["Chinese American"]},
+            Yang: {nationality: ["Chinese American"]},
+            Huang: {nationality: ["Chinese American"]},
+            Zhao: {nationality: ["Chinese American"]},
+            Wu: {nationality: ["Chinese American"]},
+            Zhou: {nationality: ["Chinese American"]},
+            Roy: {nationality: ["Canadian American"]},
+            Bouchard: {nationality: ["Canadian American"]},
+            Lavoie: {nationality: ["Canadian American"]},
+            Gagné: {nationality: ["Canadian American"]},
+            Arslanian: {nationality: ["Armenian American"]},
+            Kevorkian: {nationality: ["Armenian American"]},
+            Sarkisian: {nationality: ["Armenian American"]},
+            Karapetian: {nationality: ["Armenian American"]},
+            Vartanian: {nationality: ["Armenian American"]},
+            DerBedrosian: {nationality: ["Armenian American"]},
+            Sarkissian: {nationality: ["Armenian American"]},
+            Papazian: {nationality: ["Armenian American"]},
+            Abdullah: {nationality: ["Arabian American"]},
+            Hassan: {nationality: ["Arabian American"]},
+            Hussein: {nationality: ["Arabian American"]},
+            Ahmad: {nationality: ["Arabian American"]},
+            Mohammed: {nationality: ["Arabian American"]},
+            Sultan: {nationality: ["Arabian American"]},
+            Saleh: {nationality: ["Arabian American"]},
+            AlMasri: {nationality: ["Arabian American"]},
+            Johnson: {nationality: ["Native American", "Jamaican American", "English American", "African American"]},
+            Williams: {nationality: ["Welsh American", "Jamaican American", "English American", "African American"]},
+            Smith: {nationality: ["Native American", "Jamaican American", "English American", "African American"]},
+            Brown: {nationality: ["Native American", "Jamaican American", "English American", "African American"]},
+            Davis: {nationality: ["Native American", "Jamaican American", "English American", "African American"]},
+            Jones: {nationality: ["Welsh American", "English American", "African American"]},
+            Harris: {nationality: ["African American"]},
+            Thompson: {nationality: ["Native American", "Jamaican American", "African American"]},
+            Wilson: {nationality: ["Scottish American", "Native American", "English American", "African American"]},
+            Jackson: {nationality: ["Native American", "African American"]},
+            // Add more last names here
+        };
+
+        const nationalities = new Set();
+        for (const name in firstNames) {
+            firstNames[name].nationality.forEach(nationality => nationalities.add(nationality));
+        }
+        for (const name in lastNames) {
+            lastNames[name].nationality.forEach(nationality => nationalities.add(nationality));
+        }
+
+        const nationalitySelect = document.getElementById('nationality-select');
+        nationalities.forEach(nationality => {
+            const option = document.createElement('option');
+            option.value = nationality;
+            option.textContent = nationality;
+            nationalitySelect.appendChild(option);
+        });
+
+        function generateName() {
+            const selectedGender = document.getElementById('gender-select').value;
+            const selectedNationality = nationalitySelect.value;
+            if (!selectedGender || !selectedNationality) {
+                document.getElementById('result').textContent = 'Please select both gender and nationality.';
+                return;
+            }
+
+            const filteredFirstNames = Object.keys(firstNames).filter(name => 
+                firstNames[name].gender === selectedGender && 
+                firstNames[name].nationality.includes(selectedNationality)
+            );
+            const filteredLastNames = Object.keys(lastNames).filter(name => 
+                lastNames[name].nationality.includes(selectedNationality)
+            );
+
+            const randomFirstName = filteredFirstNames[Math.floor(Math.random() * filteredFirstNames.length)];
+            const randomLastName = filteredLastNames[Math.floor(Math.random() * filteredLastNames.length)];
+
+            document.getElementById('result').textContent = `${randomFirstName} ${randomLastName}`;
+        }
+    </script>
+</body>
+</html>
